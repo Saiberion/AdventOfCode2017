@@ -72,6 +72,8 @@ namespace Day6
 				}
 			}
 
+            file.Close();
+
 			Console.WriteLine("Steps Part 1: {0}", steps);
 			Console.WriteLine("Loop size Part 2: {0}", loopsize);
 

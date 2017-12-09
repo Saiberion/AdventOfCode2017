@@ -117,6 +117,8 @@ namespace Day8
 				instructionList.Add(new Instruction(s));
 			}
 
+            file.Close();
+
 			largestEver = executeInstructions(registers, instructionList);
 
 			Console.WriteLine(string.Format("Largest Register Value: {0}", getLargestValue(registers)));

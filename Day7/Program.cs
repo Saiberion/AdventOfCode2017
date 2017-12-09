@@ -119,6 +119,8 @@ namespace Day7
 				}
 			}
 
+            file.Close();
+
 			towerWeight(tower[0]);
 
 			Console.WriteLine("Towerbase Part 1: {0}", tower[0].name);

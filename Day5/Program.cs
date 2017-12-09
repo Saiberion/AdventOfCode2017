@@ -55,7 +55,9 @@ namespace Day5
 				jumpList.Add(int.Parse(line));
 			}
 
-			Console.WriteLine("Jumps Part 1: {0}", listWalkerPart1(jumpList));
+            file.Close();
+
+            Console.WriteLine("Jumps Part 1: {0}", listWalkerPart1(jumpList));
 			Console.WriteLine("Jumps Part 2: {0}", listWalkerPart2(jumpList));
 
 			Console.ReadLine();
