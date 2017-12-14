@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day13", "Day13\Day13.csproj", "{595C9EA9-1838-452C-9968-997438C6C9EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day14", "Day14\Day14.csproj", "{BE4B1413-537D-4A7E-A8DB-163D1B651857}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ED5EE0D-8578-43F5-B6ED-D13980E8D01A} = {9ED5EE0D-8578-43F5-B6ED-D13980E8D01A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

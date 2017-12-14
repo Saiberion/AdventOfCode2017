@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Day10
 {
-    class Program
+    public static class KnotHash
     {
         static int currentPosition = 0;
         static int skipSize = 0;
-        const int listLength = 256;
+        public const int listLength = 256;
 
-        static void knotHashingRound(List<byte> knotHash, List<byte> inputLengths)
+        public static void knotHashingRound(List<byte> knotHash, List<byte> inputLengths)
         {
             foreach (int i in inputLengths)
             {
@@ -45,37 +45,13 @@ namespace Day10
             }
         }
 
-        static int part1(string stream)
-        {
-            List<byte> inputLengths = new List<byte>();
-            List<byte> knotHash = new List<byte>();
-
-            currentPosition = 0;
-            skipSize = 0;
-
-            foreach (string s in stream.Split(','))
-            {
-                inputLengths.Add(byte.Parse(s));
-            }
-
-            for (int i = 0; i < listLength; i++)
-            {
-                knotHash.Add((byte)i);
-            }
-
-            knotHashingRound(knotHash, inputLengths);
-
-            return knotHash[0] * knotHash[1];
-        }
-
-        static string part2(string stream)
+        public static string knotHash(string stream)
         {
             List<byte> inputLengths = new List<byte>();
             List<byte> knotHash = new List<byte>();
             List<byte> denseHash = new List<byte>();
 
-            currentPosition = 0;
-            skipSize = 0;
+            KnotHash.Reset();
 
             inputLengths.AddRange(Encoding.ASCII.GetBytes(stream));
 
@@ -84,14 +60,14 @@ namespace Day10
                 inputLengths.Add(byte.Parse(s));
             }
 
-            for (int i = 0; i < listLength; i++)
+            for (int i = 0; i < KnotHash.listLength; i++)
             {
                 knotHash.Add((byte)i);
             }
 
             for (int i = 0; i < 64; i++)
             {
-                knotHashingRound(knotHash, inputLengths);
+                KnotHash.knotHashingRound(knotHash, inputLengths);
             }
 
             for (int i = 0; i < 16; i++)
@@ -113,6 +89,39 @@ namespace Day10
             return sb.ToString();
         }
 
+        public static void Reset()
+        {
+            currentPosition = 0;
+            skipSize = 0;
+        }
+    }
+
+    class Program
+    {
+        
+
+        static int part1(string stream)
+        {
+            List<byte> inputLengths = new List<byte>();
+            List<byte> knotHash = new List<byte>();
+
+            KnotHash.Reset();
+
+            foreach (string s in stream.Split(','))
+            {
+                inputLengths.Add(byte.Parse(s));
+            }
+
+            for (int i = 0; i < KnotHash.listLength; i++)
+            {
+                knotHash.Add((byte)i);
+            }
+
+            KnotHash.knotHashingRound(knotHash, inputLengths);
+
+            return knotHash[0] * knotHash[1];
+        }
+
         static void Main(string[] args)
         {
             StreamReader file = new StreamReader("input.txt");
@@ -122,7 +131,7 @@ namespace Day10
             file.Close();
 
             Console.WriteLine(string.Format("Result Part1: {0}", part1(stream)));
-            Console.WriteLine(string.Format("Result Part2: {0}", part2(stream)));
+            Console.WriteLine(string.Format("Result Part2: {0}", KnotHash.knotHash(stream)));
             Console.ReadLine();
         }
     }

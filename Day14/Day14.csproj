@@ -56,5 +56,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Day10\Day10.csproj">
+      <Project>{9ed5ee0d-8578-43f5-b6ed-d13980e8d01a}</Project>
+      <Name>Day10</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
