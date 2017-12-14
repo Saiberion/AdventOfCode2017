@@ -25,7 +25,7 @@ namespace Day10
                     knotHash.RemoveRange(currentPosition, i);
                     knotHash.InsertRange(currentPosition, segment);
                 }
-                catch (ArgumentException e)
+                catch (ArgumentException)
                 {
                     segment = knotHash.GetRange(currentPosition, listLength - currentPosition);
                     segment.AddRange(knotHash.GetRange(0, i - (listLength - currentPosition)));
