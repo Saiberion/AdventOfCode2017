@@ -23,22 +23,26 @@ namespace KnotHashing
             foreach (int i in inputLengths)
             {
                 List<byte> segment;
-                try
+
+                if ((currentPosition + i) > knotHash.Count)
+                {
+                    int elementsTillEndOfList = knotHash.Count - currentPosition;
+                    int remainingElementsFromStartOfList = i - elementsTillEndOfList;
+
+                    segment = knotHash.GetRange(currentPosition, elementsTillEndOfList);
+                    segment.AddRange(knotHash.GetRange(0, remainingElementsFromStartOfList));
+                    segment.Reverse();
+                    knotHash.RemoveRange(currentPosition, elementsTillEndOfList);
+                    knotHash.AddRange(segment.GetRange(0, elementsTillEndOfList));
+                    knotHash.RemoveRange(0, remainingElementsFromStartOfList);
+                    knotHash.InsertRange(0, segment.GetRange(elementsTillEndOfList, remainingElementsFromStartOfList));
+                }
+                else
                 {
                     segment = knotHash.GetRange(currentPosition, i);
                     segment.Reverse();
                     knotHash.RemoveRange(currentPosition, i);
                     knotHash.InsertRange(currentPosition, segment);
-                }
-                catch (ArgumentException)
-                {
-                    segment = knotHash.GetRange(currentPosition, listLength - currentPosition);
-                    segment.AddRange(knotHash.GetRange(0, i - (listLength - currentPosition)));
-                    segment.Reverse();
-                    knotHash.RemoveRange(currentPosition, listLength - currentPosition);
-                    knotHash.AddRange(segment.GetRange(0, listLength - currentPosition));
-                    knotHash.RemoveRange(0, i - (knotHash.Count - currentPosition));
-                    knotHash.InsertRange(0, segment.GetRange(listLength - currentPosition, i - (listLength - currentPosition)));
                 }
 
                 currentPosition += i + skipSize;
