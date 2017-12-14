@@ -4,31 +4,31 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Day10;
+using KnotHashing;
 
 namespace Day14
 {
     class Program
     {
-        static void fillRegion(int regionNumber, int x, int y, List<int[]> grid)
+        static void FillRegion(int regionNumber, int x, int y, List<int[]> grid)
         {
             grid[y][x] = regionNumber;
 
             if ((x > 0) && (grid[y][x - 1] == -1))
             {
-                fillRegion(regionNumber, x - 1, y, grid);
+                FillRegion(regionNumber, x - 1, y, grid);
             }
             if ((x < 127) && (grid[y][x + 1] == -1))
             {
-                fillRegion(regionNumber, x + 1, y, grid);
+                FillRegion(regionNumber, x + 1, y, grid);
             }
             if ((y > 0) && (grid[y - 1][x] == -1))
             {
-                fillRegion(regionNumber, x, y - 1, grid);
+                FillRegion(regionNumber, x, y - 1, grid);
             }
             if ((y < 127) && (grid[y + 1][x] == -1))
             {
-                fillRegion(regionNumber, x, y + 1, grid);
+                FillRegion(regionNumber, x, y + 1, grid);
             }
         }
 
@@ -41,6 +41,7 @@ namespace Day14
 
             file.Close();
 
+            KnotHash knotHash = new KnotHash();
             List<int[]> diskGrid = new List<int[]>();
             int usedGridCells = 0;
             int regionCount = 0;
@@ -49,7 +50,7 @@ namespace Day14
             {
                 int[] arr = new int[128];
                 int baseIndex = 0;
-                string hash = KnotHash.knotHash(string.Format("{0}-{1}", baseKey, i));
+                string hash = knotHash.GetHashString(string.Format("{0}-{1}", baseKey, i));
                 foreach (char c in hash)
                 {
                     byte b = Convert.ToByte(c.ToString(), 16);
@@ -74,7 +75,7 @@ namespace Day14
                 {
                     if (diskGrid[y][x] == -1)
                     {
-                        fillRegion(++regionCount, x, y, diskGrid);
+                        FillRegion(++regionCount, x, y, diskGrid);
                     }
                 }
             }

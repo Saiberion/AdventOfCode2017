@@ -57,5 +57,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KnotHash\KnotHashing.csproj">
+      <Project>{58546ecd-8728-4ed1-963c-8c8ff0998c1b}</Project>
+      <Name>KnotHashing</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
