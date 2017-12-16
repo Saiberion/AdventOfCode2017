@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day1", "Day1\Day1.csproj", "{75F76208-D40D-42A2-90DF-908FF00C08EB}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnotHashing", "KnotHash\KnotHashing.csproj", "{58546ECD-8728-4ED1-963C-8C8FF0998C1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day15", "Day15\Day15.csproj", "{7C40B6B7-4CB4-4011-BFC1-2788E9A03201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day16", "Day16\Day16.csproj", "{CE03D131-E42B-4713-BD7A-3993AC19106B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +135,14 @@ Global
 		{7C40B6B7-4CB4-4011-BFC1-2788E9A03201}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C40B6B7-4CB4-4011-BFC1-2788E9A03201}.Release|x86.ActiveCfg = Release|Any CPU
 		{7C40B6B7-4CB4-4011-BFC1-2788E9A03201}.Release|x86.Build.0 = Release|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Debug|x86.Build.0 = Debug|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Release|x86.ActiveCfg = Release|Any CPU
+		{CE03D131-E42B-4713-BD7A-3993AC19106B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
