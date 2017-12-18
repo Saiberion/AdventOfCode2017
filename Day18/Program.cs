@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -66,17 +67,100 @@ namespace Day18
         }
     }
 
-    class MyThreadObject
+    class DuetThread
     {
-        public List<Instruction> instructionList;
-        public int localID;
-        public int remoteID;
+        public List<Instruction> Program { get; set; }
+        public int ID { get; set; }
+        public BlockingCollection<Int64> SendQueue { get; set; }
+        public BlockingCollection<Int64> ReceiveQueue { get; set; }
+
+        public void thread()
+        {
+            Int64 programCounter = 0;
+            Dictionary<string, Int64> registerMap = new Dictionary<string, Int64>();
+            BlockingCollection<Int64> sndQ = this.SendQueue;
+            BlockingCollection<Int64> rcvQ = this.ReceiveQueue;
+            int sendCounter = 0;
+
+            registerMap.Add("p", this.ID);
+
+            do
+            {
+                Int64 parameter;
+                Instruction instr = Program[(int)programCounter];
+
+                if (!registerMap.ContainsKey(instr.Register))
+                {
+                    if (!Int64.TryParse(instr.Register, out parameter))
+                    {
+                        registerMap.Add(instr.Register, 0);
+                    }
+                    else
+                    {
+                        registerMap.Add(instr.Register, parameter);
+                    }
+                }
+
+                if (!Int64.TryParse(instr.Parameter, out parameter))
+                {
+                    if (registerMap.ContainsKey(instr.Parameter))
+                    {
+                        parameter = registerMap[instr.Parameter];
+                    }
+                }
+
+                switch (instr.Opcode)
+                {
+                    case EOpcodes.eOpcodeSND:
+                        sndQ.Add(registerMap[instr.Register]);
+                        sendCounter++;
+                        programCounter++;
+                        break;
+                    case EOpcodes.eOpcodeSET:
+                        registerMap[instr.Register] = parameter;
+                        programCounter++;
+                        break;
+                    case EOpcodes.eOpcodeADD:
+                        registerMap[instr.Register] += parameter;
+                        programCounter++;
+                        break;
+                    case EOpcodes.eOpcodeMUL:
+                        registerMap[instr.Register] *= parameter;
+                        programCounter++;
+                        break;
+                    case EOpcodes.eOpcodeMOD:
+                        registerMap[instr.Register] %= parameter;
+                        programCounter++;
+                        break;
+                    case EOpcodes.eOpcodeRCV:
+                        if (rcvQ.TryTake(out parameter, 200))
+                        {
+                            registerMap[instr.Register] = parameter;
+                            programCounter++;
+                        }
+                        else
+                        {
+                            programCounter = -1;
+                        }
+                        break;
+                    case EOpcodes.eOpcodeJGZ:
+                        if (registerMap[instr.Register] > 0)
+                        {
+                            programCounter += parameter;
+                        }
+                        else
+                        {
+                            programCounter++;
+                        }
+                        break;
+                }
+            } while ((programCounter >= 0) && (programCounter < Program.Count));
+            Console.WriteLine(string.Format("Prog {0} sendCounter at dead lock: {1}", this.ID, sendCounter));
+        }
     }
 
     class Program
     {
-        static Queue<Int64>[] messageQueues = new Queue<Int64>[2];
-
         static void Main(string[] args)
         {
             StreamReader file = new StreamReader("input.txt");
@@ -155,96 +239,32 @@ namespace Day18
 
             // Damn snd and rcv do something completely different :-)
 
-            messageQueues[0] = new Queue<Int64>();
-            messageQueues[1] = new Queue<Int64>();
+            DuetThread dt1 = new DuetThread();
+            DuetThread dt2 = new DuetThread();
 
-            System.Threading.Thread p1 = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(assembly));
-            System.Threading.Thread p2 = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(assembly));
+            System.Threading.Thread p1 = new System.Threading.Thread(new System.Threading.ThreadStart(dt1.thread));
+            System.Threading.Thread p2 = new System.Threading.Thread(new System.Threading.ThreadStart(dt2.thread));
 
-            MyThreadObject tparam1 = new MyThreadObject();
-            MyThreadObject tparam2 = new MyThreadObject();
+            dt1.Program = program;
+            dt2.Program = program;
 
-            tparam1.instructionList = program;
-            tparam2.instructionList = program;
+            dt1.ID = 0;
+            dt2.ID = 1;
 
-            tparam1.localID = 0;
-            tparam2.localID = 1;
+            dt1.SendQueue = new BlockingCollection<Int64>();
+            dt2.SendQueue = new BlockingCollection<Int64>();
 
-            tparam1.remoteID = 1;
-            tparam2.remoteID = 0;
+            dt1.ReceiveQueue = dt2.SendQueue;
+            dt2.ReceiveQueue = dt1.SendQueue;
 
-            p1.Start(tparam1);
-            p2.Start(tparam2);
+            p1.Start();
+            p2.Start();
 
             p1.Join();
             p2.Join();
 
             Console.WriteLine(string.Format("Program ended"));
             Console.ReadLine();
-        }
-
-        public static void assembly(object o)
-        {
-            MyThreadObject param = (MyThreadObject)o;
-            Int64 programCounter = 0;
-            Dictionary<string, Int64> registerMap = new Dictionary<string, Int64>();
-
-            do
-            {
-                Int64 parameter;
-                Instruction instr = param.instructionList[(int)programCounter];
-
-                if (!registerMap.ContainsKey(instr.Register))
-                {
-                    registerMap.Add(instr.Register, 0);
-                }
-
-                if (!Int64.TryParse(instr.Parameter, out parameter))
-                {
-                    if (registerMap.ContainsKey(instr.Parameter))
-                    {
-                        parameter = registerMap[instr.Parameter];
-                    }
-                }
-
-                switch (instr.Opcode)
-                {
-                    case EOpcodes.eOpcodeSND:
-                        messageQueues[param.remoteID].Enqueue(registerMap[instr.Register]);
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeSET:
-                        registerMap[instr.Register] = parameter;
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeADD:
-                        registerMap[instr.Register] += parameter;
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeMUL:
-                        registerMap[instr.Register] *= parameter;
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeMOD:
-                        registerMap[instr.Register] %= parameter;
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeRCV:
-                        registerMap[instr.Register] = messageQueues[param.localID].Dequeue();
-                        programCounter++;
-                        break;
-                    case EOpcodes.eOpcodeJGZ:
-                        if (registerMap[instr.Register] > 0)
-                        {
-                            programCounter += parameter;
-                        }
-                        else
-                        {
-                            programCounter++;
-                        }
-                        break;
-                }
-            } while ((programCounter >= 0) && (programCounter < param.instructionList.Count));
         }
     }
 }
