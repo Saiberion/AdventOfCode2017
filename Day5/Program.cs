@@ -7,7 +7,7 @@ namespace Day5
 {
 	class Program
 	{
-		static int listWalkerPart1(List<int> jumpList) {
+		static int ListWalkerPart1(List<int> jumpList) {
 			int steps = 0;
 			int index = 0;
 			List<int> jList = new List<int>(jumpList);
@@ -23,7 +23,7 @@ namespace Day5
 			return steps;
 		}
 
-		static int listWalkerPart2(List<int> jumpList) {
+		static int ListWalkerPart2(List<int> jumpList) {
 			int steps = 0;
 			int index = 0;
 			List<int> jList = new List<int>(jumpList);
@@ -57,8 +57,8 @@ namespace Day5
 
             file.Close();
 
-            Console.WriteLine("Jumps Part 1: {0}", listWalkerPart1(jumpList));
-			Console.WriteLine("Jumps Part 2: {0}", listWalkerPart2(jumpList));
+            Console.WriteLine("Jumps Part 1: {0}", ListWalkerPart1(jumpList));
+			Console.WriteLine("Jumps Part 2: {0}", ListWalkerPart2(jumpList));
 
 			Console.ReadLine();
 		}

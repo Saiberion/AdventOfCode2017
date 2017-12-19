@@ -7,7 +7,7 @@ namespace Day6
 {
 	class Program
 	{
-		static int calculateSignature(List<int> l) {
+		static int CalculateSignature(List<int> l) {
 			StringBuilder sb = new StringBuilder();
 
 			sb.Append(l.Count);
@@ -19,7 +19,7 @@ namespace Day6
 			return sb.ToString().GetHashCode();
 		}
 
-		static int findMaxBlocks(List<int> l) {
+		static int FindMaxBlocks(List<int> l) {
 			int maxblocks = -1;
 			int index = 0;
 
@@ -47,13 +47,13 @@ namespace Day6
 					memoryBanks.Add(int.Parse(s));
 				}
 			}
-			uniqueSignatures.Add(calculateSignature(memoryBanks));
+			uniqueSignatures.Add(CalculateSignature(memoryBanks));
 
 			steps = 0;
 			while (true) {
 				int sig;
 				int start, stop;
-				start = stop = findMaxBlocks(memoryBanks);
+				start = stop = FindMaxBlocks(memoryBanks);
 				int tmp = memoryBanks[start];
 				memoryBanks[start++] = 0;
 				for (int i = 0; i < tmp; i++) {
@@ -63,12 +63,12 @@ namespace Day6
 					memoryBanks[start++]++;
 				}
 				steps++;
-				sig = calculateSignature(memoryBanks);
+				sig = CalculateSignature(memoryBanks);
 				if (uniqueSignatures.Contains(sig)) {
 					loopsize = steps - uniqueSignatures.IndexOf(sig);
 					break;
 				} else {
-					uniqueSignatures.Add(calculateSignature(memoryBanks));
+					uniqueSignatures.Add(CalculateSignature(memoryBanks));
 				}
 			}
 

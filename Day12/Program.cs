@@ -8,13 +8,13 @@ namespace Day12
 {
 	class Program
 	{
-		static int countIDs(Dictionary<int, List<int>> pipes, List<int> groupIDs, int searchID) {
+		static int CountIDs(Dictionary<int, List<int>> pipes, List<int> groupIDs, int searchID) {
 			int ret = 0;
 			if (!groupIDs.Contains(searchID)) {
 				ret++;
 				groupIDs.Add(searchID);
 				foreach (int i in pipes[searchID]) {
-					ret += countIDs(pipes, groupIDs, i);
+					ret += CountIDs(pipes, groupIDs, i);
 				}
 			}
 			return ret;
@@ -41,7 +41,7 @@ namespace Day12
 
 			while (progPipes.Count > 0) {
 				List<int> groupIDs = new List<int>();
-				groups.Add(countIDs(progPipes, groupIDs, progPipes.First().Key));
+				groups.Add(CountIDs(progPipes, groupIDs, progPipes.First().Key));
 				foreach (int i in groupIDs) {
 					progPipes.Remove(i);
 				}

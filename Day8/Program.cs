@@ -24,7 +24,7 @@ namespace Day8
 			this.ConditionValue = int.Parse(s[6]);
 		}
 
-		private bool isConditionValid(Dictionary<string, int> registers) {
+		private bool IsConditionValid(Dictionary<string, int> registers) {
 			int condRegVal = registers[this.ConditionRegister];
 			bool ret;
 
@@ -55,7 +55,7 @@ namespace Day8
 			return ret;
 		}
 
-		private void executeOperation(Dictionary<string, int> registers) {
+		private void ExecuteOperation(Dictionary<string, int> registers) {
 			switch (this.Operation) {
 				case "inc":
 					registers[this.Register] += this.OperationValue;
@@ -69,21 +69,21 @@ namespace Day8
 			}
 		}
 
-		public void execute(Dictionary<string, int> registers) {
-			if (isConditionValid(registers)) {
-				executeOperation(registers);
+		public void Execute(Dictionary<string, int> registers) {
+			if (IsConditionValid(registers)) {
+				ExecuteOperation(registers);
 			}
 		}
 	}
 
 	class Program
 	{
-		static int executeInstructions(Dictionary<string, int> registers, List<Instruction> instructionList) {
+		static int ExecuteInstructions(Dictionary<string, int> registers, List<Instruction> instructionList) {
 			int ret = int.MinValue;
 			int val;
 			foreach (Instruction instr in instructionList) {
-				instr.execute(registers);
-				val = getLargestValue(registers);
+				instr.Execute(registers);
+				val = GetLargestValue(registers);
 				if (val > ret) {
 					ret = val;
 				}
@@ -91,7 +91,7 @@ namespace Day8
 			return ret;
 		}
 
-		static int getLargestValue(Dictionary<string, int> registers) {
+		static int GetLargestValue(Dictionary<string, int> registers) {
 			int ret = int.MinValue;
 
 			foreach (int val in registers.Values) {
@@ -119,9 +119,9 @@ namespace Day8
 
             file.Close();
 
-			largestEver = executeInstructions(registers, instructionList);
+			largestEver = ExecuteInstructions(registers, instructionList);
 
-			Console.WriteLine(string.Format("Largest Register Value: {0}", getLargestValue(registers)));
+			Console.WriteLine(string.Format("Largest Register Value: {0}", GetLargestValue(registers)));
 			Console.WriteLine(string.Format("Largest Register Value Ever: {0}", largestEver));
 			Console.ReadLine();
 		}

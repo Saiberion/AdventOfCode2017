@@ -7,7 +7,7 @@ namespace Day4
 {
 	class Program
 	{
-		static int isValidPassphrasePart1(string line) {
+		static int IsValidPassphrasePart1(string line) {
 			string[] wordList = line.Split(' ');
 
 			for (int i = 0; i < wordList.Length; i++) {
@@ -21,7 +21,7 @@ namespace Day4
 			return 1;
 		}
 
-		static bool isAnagram(string w1, string w2) {
+		static bool IsAnagram(string w1, string w2) {
 			if (w1.Length == w2.Length) {
 				for (int i = 0; i < w1.Length; i++) {
 					for (int j = 0; j < w2.Length; j++) {
@@ -39,12 +39,12 @@ namespace Day4
 			return false;
 		}
 		
-		static int isValidPassphrasePart2(string line) {
+		static int IsValidPassphrasePart2(string line) {
 			string[] wordList = line.Split(' ');
 
 			for (int i = 0; i < wordList.Length; i++) {
 				for (int j = i + 1; j < wordList.Length; j++) {
-					if (isAnagram(wordList[i], wordList[j])) {
+					if (IsAnagram(wordList[i], wordList[j])) {
 						return 0;
 					}
 				}
@@ -60,8 +60,8 @@ namespace Day4
 			int validPassphrasesPart2 = 0;
 
 			while ((line = file.ReadLine()) != null) {
-				validPassphrasesPart1 += isValidPassphrasePart1(line);
-				validPassphrasesPart2 += isValidPassphrasePart2(line);
+				validPassphrasesPart1 += IsValidPassphrasePart1(line);
+				validPassphrasesPart2 += IsValidPassphrasePart2(line);
 			}
 
 			file.Close();

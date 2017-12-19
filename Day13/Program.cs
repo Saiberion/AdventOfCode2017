@@ -17,7 +17,7 @@ namespace Day13
 			direction = 1;
 		}
 
-		public void moveScanner() {
+		public void MoveScanner() {
 			scannerPosition += direction;
 			if (this.scannerPosition == this.Depth) {
 				direction = -1;
@@ -26,7 +26,7 @@ namespace Day13
 			}
 		}
 
-		public void undoMoveScanner() {
+		public void UndoMoveScanner() {
 			if (this.scannerPosition == this.Depth) {
 				direction = 1;
 			} else if (this.scannerPosition == 1) {
@@ -35,12 +35,12 @@ namespace Day13
 			scannerPosition -= direction;
 		}
 
-		public void resetScanner() {
+		public void ResetScanner() {
 			scannerPosition = 1;
 			direction = 1;
 		}
 
-		public bool detected() {
+		public bool Detected() {
 			return scannerPosition == 1;
 		}
 	}
@@ -73,20 +73,20 @@ namespace Day13
 				packetLayerPosition++;
 				// check if caught
 				if (firewall.ContainsKey(packetLayerPosition)) {
-					if (firewall[packetLayerPosition].detected()) {
+					if (firewall[packetLayerPosition].Detected()) {
 						severity += packetLayerPosition * firewall[packetLayerPosition].Depth;
 					}
 				}
 				// Move all scanners
 				foreach (FirewallLayer f in firewall.Values) {
-					f.moveScanner();
+					f.MoveScanner();
 				}
 			}
 
 			packetLayerPosition = -1;
 			// Reset all scanners
 			foreach (FirewallLayer f in firewall.Values) {
-				f.resetScanner();
+				f.ResetScanner();
 				packetLayerPosition = -1;
 			}
 
@@ -99,14 +99,14 @@ namespace Day13
 				}
 				// check if caught
 				if (firewall.ContainsKey(packetLayerPosition)) {
-					if (firewall[packetLayerPosition].detected()) {
+					if (firewall[packetLayerPosition].Detected()) {
 						startDelay++;
 						delay = 1;
 
 						while (packetLayerPosition > 0) {
 							// Undo scanner steps
 							foreach (FirewallLayer f in firewall.Values) {
-								f.undoMoveScanner();
+								f.UndoMoveScanner();
 							}
 							packetLayerPosition--;
 						}
@@ -116,7 +116,7 @@ namespace Day13
 				}
 				// Move all scanners
 				foreach (FirewallLayer f in firewall.Values) {
-					f.moveScanner();
+					f.MoveScanner();
 				}
 			}
 

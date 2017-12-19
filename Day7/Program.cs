@@ -15,7 +15,7 @@ namespace Day7
 
 	class Program
 	{
-		static bool addToTower(List<TowerElement> tower, TowerElement t) {
+		static bool AddToTower(List<TowerElement> tower, TowerElement t) {
 			if (tower.Count == 0) {
 				tower.Add(t);
 				return true;
@@ -28,13 +28,13 @@ namespace Day7
 								return true;
 							} else {
 								if (te.subs[i].subs.Count > 0) {
-									if (addToTower(te.subs[i].subs, t)) {
+									if (AddToTower(te.subs[i].subs, t)) {
 										return true;
 									}
 								}
 							}
 						}
-						if (addToTower(te.subs, t)) {
+						if (AddToTower(te.subs, t)) {
 							return true;
 						}
 					} else {
@@ -49,7 +49,7 @@ namespace Day7
 			return false;
 		}
 
-		static bool addFromTower(List<TowerElement> tower, TowerElement t) {
+		static bool AddFromTower(List<TowerElement> tower, TowerElement t) {
 			if (tower.Count == 0) {
 				return false;
 			} else {
@@ -66,11 +66,11 @@ namespace Day7
 			return false;
 		}
 
-		static void towerWeight(TowerElement t) {
+		static void TowerWeight(TowerElement t) {
 			if (t.subs.Count > 0) {
 				t.totalWeight = t.weight;
 				foreach(TowerElement te in t.subs) {
-					towerWeight(te);
+					TowerWeight(te);
 				}
 				foreach (TowerElement te in t.subs) {
 					t.totalWeight += te.totalWeight;
@@ -80,7 +80,7 @@ namespace Day7
 			}
 		}
 
-		static void findUnbalancedElement(TowerElement tower) {
+		static void FindUnbalancedElement(TowerElement tower) {
 			int compare = 0;
 			for (int i = 0; i < tower.subs.Count; i++) {
 				if (i == 0) {
@@ -100,20 +100,24 @@ namespace Day7
 
 			while ((line = file.ReadLine()) != null) {
 				string[] s = line.Replace(" ", "").Split(new string[] { "(", ")", "->" }, StringSplitOptions.RemoveEmptyEntries);
-				TowerElement t = new TowerElement();
-				t.name = s[0];
-				t.weight = int.Parse(s[1]);
-				if (s.Length > 2) {
+                TowerElement t = new TowerElement()
+                {
+                    name = s[0],
+                    weight = int.Parse(s[1])
+                };
+                if (s.Length > 2) {
 					string[] csv = s[2].Split(',');
 					foreach (string n in csv) {
-						TowerElement te = new TowerElement();
-						te.name = n;
-						t.subs.Add(te);
+                        TowerElement te = new TowerElement()
+                        {
+                            name = n
+                        };
+                        t.subs.Add(te);
 					}
-					addFromTower(tower, t);
+					AddFromTower(tower, t);
 				}
 
-				if (!addToTower(tower, t)) {
+				if (!AddToTower(tower, t)) {
 					// Turm hat schon eine Basis, kann nirgends eingehängt werden
 					tower.Add(t);
 				}
@@ -121,7 +125,7 @@ namespace Day7
 
             file.Close();
 
-			towerWeight(tower[0]);
+			TowerWeight(tower[0]);
 
 			Console.WriteLine("Towerbase Part 1: {0}", tower[0].name);
 			Console.ReadLine();

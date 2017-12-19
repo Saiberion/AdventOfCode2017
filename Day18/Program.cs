@@ -74,7 +74,7 @@ namespace Day18
         public BlockingCollection<Int64> SendQueue { get; set; }
         public BlockingCollection<Int64> ReceiveQueue { get; set; }
 
-        public void thread()
+        public void ThreadFunc()
         {
             Int64 programCounter = 0;
             Dictionary<string, Int64> registerMap = new Dictionary<string, Int64>();
@@ -178,7 +178,6 @@ namespace Day18
 
             do
             {
-                Int64 parameter;
                 Instruction instr = program[(int)programCounter];
 
                 if (!registerMap.ContainsKey(instr.Register))
@@ -186,7 +185,7 @@ namespace Day18
                     registerMap.Add(instr.Register, 0);
                 }
 
-                if (!Int64.TryParse(instr.Parameter, out parameter))
+                if (!Int64.TryParse(instr.Parameter, out Int64 parameter))
                 {
                     if (registerMap.ContainsKey(instr.Parameter))
                     {
@@ -242,8 +241,8 @@ namespace Day18
             DuetThread dt1 = new DuetThread();
             DuetThread dt2 = new DuetThread();
 
-            System.Threading.Thread p1 = new System.Threading.Thread(new System.Threading.ThreadStart(dt1.thread));
-            System.Threading.Thread p2 = new System.Threading.Thread(new System.Threading.ThreadStart(dt2.thread));
+            System.Threading.Thread p1 = new System.Threading.Thread(new System.Threading.ThreadStart(dt1.ThreadFunc));
+            System.Threading.Thread p2 = new System.Threading.Thread(new System.Threading.ThreadStart(dt2.ThreadFunc));
 
             dt1.Program = program;
             dt2.Program = program;

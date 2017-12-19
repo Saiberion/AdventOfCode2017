@@ -17,7 +17,7 @@ namespace Day11
 			this.Z = 0;
 		}
 
-		public void move(string dir) {
+		public void Move(string dir) {
 			switch (dir) {
 				case "n":
 					this.X--;
@@ -46,7 +46,7 @@ namespace Day11
 			}
 		}
 
-		public int distance(HexGridPosition pos) {
+		public int Distance(HexGridPosition pos) {
 			int diffx, diffy, diffz;
 			int distance;
 
@@ -75,14 +75,14 @@ namespace Day11
 			int distance;
 
 			foreach (string dir in directions) {
-				goal.move(dir);
-				distance = goal.distance(start);
+				goal.Move(dir);
+				distance = goal.Distance(start);
 				if (distance > maxDistance) {
 					maxDistance = distance;
 				}
 			}
 
-			Console.WriteLine(string.Format("End Distance: {0}", goal.distance(start)));
+			Console.WriteLine(string.Format("End Distance: {0}", goal.Distance(start)));
 			Console.WriteLine(string.Format("Max Distance: {0}", maxDistance));
 			Console.ReadLine();
 		}
