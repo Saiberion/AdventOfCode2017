@@ -176,6 +176,8 @@ namespace Day18
                 program.Add(new Instruction(line));
             }
 
+            file.Close();
+
             do
             {
                 Instruction instr = program[(int)programCounter];
