@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day1", "Day1\Day1.csproj", "{75F76208-D40D-42A2-90DF-908FF00C08EB}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day19", "Day19\Day19.csproj", "{A8C32721-B8E3-45E7-AD4E-8E2F83F688A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day20", "Day20\Day20.csproj", "{7706AF4D-25D6-40DF-A561-A292FB9561F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoCHelpers", "AoCHelpers\AoCHelpers.csproj", "{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +185,14 @@ Global
 		{7706AF4D-25D6-40DF-A561-A292FB9561F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7706AF4D-25D6-40DF-A561-A292FB9561F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{7706AF4D-25D6-40DF-A561-A292FB9561F9}.Release|x86.Build.0 = Release|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{EAC4DFE3-52C0-4BB3-895E-A125735F94C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
