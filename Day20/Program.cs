@@ -163,16 +163,16 @@ namespace Day20
 
                 particles.Add(new Particle2()
                 {
-                    id = x,
-                    xPos = parts[0],
-                    yPos = parts[1],
-                    zPos = parts[2],
-                    xVel = parts[3],
-                    yVel = parts[4],
-                    zVel = parts[5],
-                    xAccel = parts[6],
-                    yAccel = parts[7],
-                    zAccel = parts[8]
+                    Id = x,
+                    XPos = parts[0],
+                    YPos = parts[1],
+                    ZPos = parts[2],
+                    XVel = parts[3],
+                    YVel = parts[4],
+                    ZVel = parts[5],
+                    XAccel = parts[6],
+                    YAccel = parts[7],
+                    ZAccel = parts[8]
                 });
             }
 
@@ -209,43 +209,48 @@ namespace Day20
 
     public class Particle2
     {
-        public int id { get; set; }
-        public long xPos { get; set; }
-        public long yPos { get; set; }
-        public long zPos { get; set; }
+        public int Id { get; set; }
+        public long XPos { get; set; }
+        public long YPos { get; set; }
+        public long ZPos { get; set; }
 
-        public long xVel { get; set; }
-        public long yVel { get; set; }
-        public long zVel { get; set; }
+        public long XVel { get; set; }
+        public long YVel { get; set; }
+        public long ZVel { get; set; }
 
-        public long xAccel { get; set; }
-        public long yAccel { get; set; }
-        public long zAccel { get; set; }
+        public long XAccel { get; set; }
+        public long YAccel { get; set; }
+        public long ZAccel { get; set; }
 
         public void Tick()
         {
-            xVel += xAccel;
-            yVel += yAccel;
-            zVel += zAccel;
+            XVel += XAccel;
+            YVel += YAccel;
+            ZVel += ZAccel;
 
-            xPos += xVel;
-            yPos += yVel;
-            zPos += zVel;
+            XPos += XVel;
+            YPos += YVel;
+            ZPos += ZVel;
         }
 
         public long GetDistance()
         {
-            return Math.Abs(xPos) + Math.Abs(yPos) + Math.Abs(zPos);
+            return Math.Abs(XPos) + Math.Abs(YPos) + Math.Abs(ZPos);
         }
 
         public override bool Equals(object obj)
         {
-            return (obj as Particle2).id == this.id;
+            return (obj as Particle2).Id == this.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public string GetPosition()
         {
-            return string.Join(",", xPos, yPos, zPos);
+            return string.Join(",", XPos, YPos, ZPos);
         }
     }
 }
