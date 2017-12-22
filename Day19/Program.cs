@@ -4,17 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AoCHelpers;
 
 namespace Day19
 {
-    enum EDirections
-    {
-        eUp,
-        eDown,
-        eLeft,
-        eRight
-    }
-
     class Program
     {
         static int FindMazeStart(List<string> maze)
@@ -32,17 +25,11 @@ namespace Day19
 
         static void Main(string[] args)
         {
-            StreamReader file = new StreamReader("input.txt");
-            string line;
-
             List<string> maze = new List<string>();
-
-            while ((line = file.ReadLine()) != null)
+            foreach (string line in InputLoader.LoadByLines("input.txt"))
             {
                 maze.Add(line);
             }
-
-            file.Close();
 
             // Maze walker
             int x = FindMazeStart(maze);
