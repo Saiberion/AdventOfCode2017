@@ -173,6 +173,44 @@ namespace Day23
 
     class Program
     {
+        static void aocAssemblerAsCSharp()
+        {
+            int b = 0, c = 0, d = 0, e = 0, h = 0;
+            bool f;
+
+            b = 108100;
+            c = 108100 + 17000;
+
+            for (b = 108100; b <= (108100 + 17000); b += 17)
+            {
+                f = false;
+                d = 2;
+                do
+                {
+                    e = 2;
+                    do
+                    {
+                        if (d * e == b)
+                        {
+                            f = true;
+                        }
+                        else if (d * e > b)
+                        {
+                            break;
+                        }
+                        e++;
+                    } while (e != b);
+                    d++;
+                } while (d != b);
+                if (f)
+                {
+                    h++;
+                }
+            }
+
+            Console.WriteLine(string.Format("Reached end of code port. h = {0}", h));
+        }
+
         static void Main(string[] args)
         {
             List<Instruction> program = new List<Instruction>();
@@ -189,12 +227,14 @@ namespace Day23
             p1.Start();
             p1.Join();
 
-            CoProcessor cp2 = new CoProcessor();
+            /*CoProcessor cp2 = new CoProcessor();
             System.Threading.Thread p2 = new System.Threading.Thread(new System.Threading.ThreadStart(cp2.ThreadFunc));
             cp2.Program = program;
             cp2.DebugMode = false;
             p2.Start();
-            p2.Join();
+            p2.Join();*/
+
+            aocAssemblerAsCSharp();
 
             Console.WriteLine(string.Format("Program ended"));
             Console.ReadLine();
