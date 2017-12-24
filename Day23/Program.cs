@@ -175,11 +175,10 @@ namespace Day23
     {
         static void aocAssemblerAsCSharp()
         {
-            int b = 0, c = 0, d = 0, e = 0, h = 0;
+            int b = 0, d = 0, e = 0, h = 0;
             bool f;
 
             b = 108100;
-            c = 108100 + 17000;
 
             for (b = 108100; b <= (108100 + 17000); b += 17)
             {
